@@ -34,7 +34,9 @@
                                     <div class="form-group">
                                         <label for="select" class=" form-control-label">{{ __('Product Type') }}</label>
                                         <select name="product_type" id="product_type" class="form-control{{ $errors->has('product_type') ? ' is-invalid' : '' }}">
-                                            <option value="{{ $product->item_category_id }}">Smartphone</option>
+                                            @foreach( $cats as $cat )
+                                                <option value="{{ $cat->id }}" {{ ($product->item_category->id == $cat->id) ? 'selected' : '' }}>{{ $cat->name }}</option>
+                                            @endforeach
                                         </select>
 
                                         @if ($errors->has('product_type'))

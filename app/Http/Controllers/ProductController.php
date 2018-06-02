@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\ItemCategory;
 use \DB;
 use Illuminate\Http\Request;
 
@@ -26,7 +27,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $cats = ItemCategory::orderBy('name', 'asc')->get();
+        return view('products.create', compact('cats', $cats));
     }
 
     /**
@@ -73,7 +75,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('products.edit', compact('product', $product));
+        $cats = ItemCategory::orderBy('name', 'asc')->get();
+        return view('products.edit')->with([
+            'product' => $product,
+            'cats' => $cats
+        ]);
     }
 
     /**

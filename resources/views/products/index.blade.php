@@ -84,9 +84,9 @@
                                             <tr class="tr-shadow">
                                                 <td>{{ $product->name }}</td>
                                                 <td>
-                                                    <span class="status--process">{{ $product->item_category_id }}</span>
+                                                    <span class="status--process">{{ $product->item_category->name }}</span>
                                                 </td>
-                                                <td class="desc">{{ $product->price }}</td>
+                                                <td class="desc">{{ $product->price }}.00</td>
                                                 <td>{{ $product->quantity }}</td>
                                                 <td>{{ $product->slug }}</td>
                                                 <td>{{ $product->updated_at }}</td>

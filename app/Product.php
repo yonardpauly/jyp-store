@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use \DB;
 
 class Product extends Model
 {
@@ -19,4 +20,21 @@ class Product extends Model
         'quantity',
         'slug'
     ];
+
+    public function item_category()
+    {
+        return $this->belongsTo('App\ItemCategory');
+    }
+
+    public static function guestGetItem($slug)
+    {
+        $query = DB::table('products')
+                ->select(
+                    'name',
+                    'price'
+                )
+                ->where('slug', $slug);
+        $result = $query->get();
+        return $result;
+    }
 }

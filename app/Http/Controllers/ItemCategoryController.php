@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\ItemCategory;
-use Illuminate\Http\Request;
+use App\Product;
 use \DB;
+
+use Illuminate\Http\Request;
 
 class ItemCategoryController extends Controller
 {

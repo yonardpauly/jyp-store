@@ -11,9 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', 'ShopController@index')->name('shop.index');
+Route::post('/{slug}', 'ShopController@guestAddToCart')->name('shop.guestAdd');
+Route::get('/cart', 'ShopController@showCart')->name('shop.cart');
 
 Auth::routes();
 /*
@@ -24,7 +28,7 @@ Auth::routes();
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');    
-    Route::resource('cart', 'CartController');
+    // Route::resource('cart', 'CartController');
     Route::resource('checkout', 'CheckoutController');
 });
 /*
@@ -45,3 +49,8 @@ Route::middleware('auth:admin')->group(function () {
     Route::resource('products', 'ProductController');
     Route::resource('item_categories', 'ItemCategoryController');
 });
+/*
+|--------------------------------------------------------------------------
+| Admin Routes
+|--------------------------------------------------------------------------
+*/
