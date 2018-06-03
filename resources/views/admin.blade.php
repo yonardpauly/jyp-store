@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="overview-wrap">
-                            <h2 class="display-4">Overview</h2>
+                            <h2 class="display-4">Welcome to JYP Admin Dashboard!</h2>
                         </div>
                         <p class="lead">
                             This is an overview of JYP shop where you can track all transactions from customers.

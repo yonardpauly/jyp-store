@@ -10,6 +10,15 @@ use Illuminate\Http\Request;
 
 class ItemCategoryController extends Controller
 {
+    public function success($var, $action)
+    {
+        return ucwords($var) . ' was successfully '. $action . '!';
+    }
+
+    public function error($var, $action)
+    {
+        return 'Something went wrong '. $action . ' the '. $var . ', please try again.';
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +27,6 @@ class ItemCategoryController extends Controller
     public function index()
     {
         $cats = ItemCategory::orderBy('updated_at', 'desc')->paginate(5);
-        // dd($cats);
         return view('item_categories.index', compact('cats', $cats));
     }
 
@@ -51,8 +59,8 @@ class ItemCategoryController extends Controller
         ];
 
         $result = ( DB::table('item_categories')->insert($data) )
-        ? redirect()->route('item_categories.index')->with('addSuccess', 'Category was successfully created!')
-        : redirect()->back()->with('addError', 'There are problems saving category, please try again');
+        ? redirect()->route('item_categories.index')->with('addSuccess', $this->success('Category', 'created'))
+        : redirect()->back()->with('addError', $this->error('creating', 'category'));
         return $result;
     }
 
@@ -87,8 +95,8 @@ class ItemCategoryController extends Controller
         ];
 
         $result = ( DB::table('item_categories')->where('id', $itemCategory->id)->update($data) )
-        ? redirect()->route('item_categories.index')->with('updateSuccess', 'Category was successfully updated!')
-        : redirect()->back()->with('updateError', 'There are problems updating category, please try again');
+        ? redirect()->route('item_categories.index')->with('updateSuccess', $this->success('Category', 'updated'))
+        : redirect()->back()->with('updateError', $this->error('updating', 'category'));
         return $result;
     }
 
@@ -101,8 +109,8 @@ class ItemCategoryController extends Controller
     public function destroy(ItemCategory $itemCategory)
     {
         $result = ( $itemCategory->delete() )
-        ? redirect()->route('item_categories.index')->with('deleteSuccess', 'Category was successfully moved to trash!')
-        : redirect()->back()->with('deleteError', 'There are problems deleting the category, please try again');
+        ? redirect()->route('item_categories.index')->with('deleteSuccess', $this->success('Category', 'removed to trash'))
+        : redirect()->back()->with('deleteError', $this->error('removing', 'category'));
         return $result;
     }
 }

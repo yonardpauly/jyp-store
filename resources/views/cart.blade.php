@@ -36,16 +36,7 @@
                                 @foreach( $products as $item )
                                 <tr>
                                     <td width="30%">{{ $item['item'][0]['name'] }}</td>
-                                    <td width="15%">{{ $item['price'] }}</td>
-                                    {{-- <td class="text-center" width="15%">
-                                        <select class="form-control class-qty" id="id-qty">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </td> --}}
+                                    <td width="15%">₱{{ $item['item'][0]['price'] }}.00</td>
                                     <td>{{ $item['qty'] }}</td>
                                     <td width="25%">{{ $item['price'] }}</td>
                                     <td width="15%">
@@ -63,8 +54,13 @@
                                         <strong>Total Quantity</strong>
                                     </td>
                                     <td class="text-center">
-                                        <strong class="btn btn-primary">{{ $totalPrice }}</strong><br>
+                                        <strong class="btn btn-primary">₱{{ $totalPrice }}</strong><br>
                                         <strong>Total Price</strong>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5">
+                                        <a href="{{ route('shop.checkout') }}" class="btn btn-lg btn-primary" type="">Checkout</a>
                                     </td>
                                 </tr>
                             @endif

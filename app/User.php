@@ -2,6 +2,7 @@
 
 namespace App;
 
+use \DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -26,4 +27,18 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function showCustomers()
+    {
+        $query = DB::table('users')
+                    ->select(
+                        'id',
+                        'name',
+                        'email',
+                        'created_at'
+                    )
+                    ->orderBy('name', 'asc');
+        $result = $query->paginate(3);
+        return $result;
+    }
 }

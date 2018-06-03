@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\GuestCart;
+use \Auth;
 use \DB;
 use \Session;
 use Illuminate\Http\Request;
@@ -58,5 +59,16 @@ class ShopController extends Controller
         // dd($cart->totalPrice);
         // dd($result->products->totalPrice);
         return $result;
+    }
+
+    public function showCheckout()
+    {
+        $redirectPath;
+        if (!Auth::check()) {
+            $redirectPath = redirect()->route('login')->with('mustLoginFirst', 'You must login first to chekout your item(s).');
+        } else {
+            $redirectPath = view('checkout');
+        }
+        return  $redirectPath;
     }
 }

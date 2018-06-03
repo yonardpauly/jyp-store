@@ -4,6 +4,17 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        <div class="col-md-8 offset-md-2">
+            @if( session('mustLoginFirst') )
+                <div class="sufee-alert alert with-close alert-info alert-dismissible fade show">
+                    <span class="badge badge-pill badge-success">Error</span>
+                    {{ session('mustLoginFirst') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+            @endif
+        </div>
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>

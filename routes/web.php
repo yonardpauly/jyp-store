@@ -18,11 +18,7 @@ Auth::routes();
 | Web Routes
 |--------------------------------------------------------------------------
 */
-Route::middleware('auth')->group(function () {
-    Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
-    Route::resource('checkout', 'CheckoutController');
-});
+
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
@@ -36,7 +32,7 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::middleware('auth:admin')->group(function () {
-    Route::resource('customers', 'HomeController');
+    Route::resource('customers', 'CustomerController');
     Route::resource('roles', 'RoleController');
     Route::resource('products', 'ProductController');
     Route::resource('item_categories', 'ItemCategoryController');
@@ -50,4 +46,9 @@ Route::middleware('auth:admin')->group(function () {
 Route::get('/', 'ShopController@index')->name('shop.index');
 Route::post('/{slug}', 'ShopController@guestAddToCart')->name('shop.guestAdd');
 Route::get('/cart', 'ShopController@showCart')->name('shop.cart');
-Route::put('/cart/{id}', 'ShopController@updateCartItemQty')->name('shop.updateCartItemQty');
+// Route::put('/cart/{id}', 'ShopController@updateCartItemQty')->name('shop.updateCartItemQty');
+Route::middleware('auth')->group(function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
+    Route::get('/checkout', 'ShopController@showCheckout')->name('shop.checkout');
+});
