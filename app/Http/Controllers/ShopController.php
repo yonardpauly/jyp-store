@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\User;
 use App\GuestCart;
-use \Auth;
 use \DB;
 use \Session;
+use \Auth;
+
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
@@ -36,9 +38,10 @@ class ShopController extends Controller
     {
         if (!Session::has('cart')) {
             return view('cart')->with([
-                'products' => []
+                'products' => [],
+                'totalQty' => null,
+                'totalPrice' => null
             ]);
-            // return view('cart');
         }
 
         $guestCart = Session::get('cart');
@@ -65,10 +68,30 @@ class ShopController extends Controller
     {
         $redirectPath;
         if (!Auth::check()) {
-            $redirectPath = redirect()->route('login')->with('mustLoginFirst', 'You must login first to chekout your item(s).');
+            $redirectPath = redirect()->route('login')->with('mustLoginFirst', 'You must login first to check your item(s) out.');
         } else {
-            $redirectPath = view('checkout');
+            if (!Session::has('cart')) {
+                return view('cart')->with([
+                    'products' => []
+                ]);
+            }
+            $cartItems = Session::get('cart');
+            $cart = new GuestCart($cartItems);
+
+            $customers = User::customerCheckOutInfo(Auth::user()->id);
+
+            $redirectPath = view('checkout')->with([
+                'products' => $cart->items,
+                'totalQty' => $cart->totalQty,
+                'totalPrice' => $cart->totalPrice,
+                'customers' => $customers
+            ]);
         }
-        return  $redirectPath;
+        return $redirectPath;
+    }
+
+    public function storeCheckout()
+    {
+        
     }
 }

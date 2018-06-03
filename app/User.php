@@ -31,14 +31,26 @@ class User extends Authenticatable
     public static function showCustomers()
     {
         $query = DB::table('users')
-                    ->select(
-                        'id',
-                        'name',
-                        'email',
-                        'created_at'
-                    )
-                    ->orderBy('name', 'asc');
+            ->select(
+                'id',
+                'name',
+                'email',
+                'created_at'
+            )
+        ->orderBy('name', 'asc');
         $result = $query->paginate(3);
+        return $result;
+    }
+
+    public static function customerCheckOutInfo($user_id)
+    {
+        $query = DB::table('users')
+            ->select(
+                'name',
+                'email'
+            )
+        ->where('id', $user_id);
+        $result = $query->get();
         return $result;
     }
 }

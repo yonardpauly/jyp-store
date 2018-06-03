@@ -11,6 +11,15 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quam! Odit molestias architecto recusandae doloremque sapiente qui aut molestiae praesentium reprehenderit pariatur? Voluptatem eos harum facilis tenetur laudantium odio voluptate!
             </p>
         </div>
+        <nav>
+            <ol class="cd-multi-steps text-bottom count">
+                <li class="visited"><a href="{{ route('shop.index') }}">Home</a></li>
+                <li class="current">
+                    <a href="{{ route('shop.cart') }}"><strong>Cart</strong></a>
+                </li>
+                <li><em>Checkout</em></li>
+            </ol>
+        </nav>
     </div>
 
     <div class="container">
@@ -28,6 +37,7 @@
                             </tr>
                         </thead>
                         <tbody class="text-center">
+
                             @if( count($products) < 1 )
                                 <tr>
                                     <td class="text-center" colspan="5">No Cart items found. Go shopping first</td>
@@ -47,27 +57,46 @@
                                 </tr>
                                 @endforeach
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td class="text-center">
-                                        <strong class="btn btn-primary">{{ $totalQty }}</strong><br>
-                                        <strong>Total Quantity</strong>
-                                    </td>
-                                    <td class="text-center">
-                                        <strong class="btn btn-primary">₱{{ $totalPrice }}</strong><br>
-                                        <strong>Total Price</strong>
-                                    </td>
-                                </tr>
-                                <tr>
                                     <td colspan="5">
-                                        <a href="{{ route('shop.checkout') }}" class="btn btn-lg btn-primary" type="">Checkout</a>
+                                        <a href="{{ route('shop.checkout') }}" class="btn btn-lg btn-block btn-primary">
+                                            Checkout
+                                        </a>
                                     </td>
                                 </tr>
+
                             @endif
+
                         </tbody>
                     </table>
+                    
                 </div>
             </div>
+            <div class="col-md-8">
+                <table class="table table-data2 text-center">
+                    <thead>
+                        <tr>
+                            <th>TOTAL QUANTITY</th>
+                            <th>TOTAL</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="tr-shadow">
+                            <td>
+                                <h2>
+                                    <span class="badge badge-info">{{ $totalQty }}</span>
+                                </h2>
+                            </td>
+                            <td>
+                                <h2>
+                                    <span class="badge badge-info">₱{{ $totalPrice }}.00</span>
+                                </h2>
+                            </td>
+                        </tr>
+                        <tr class="spacer"></tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
     </div>
 

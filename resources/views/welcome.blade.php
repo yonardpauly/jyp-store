@@ -39,13 +39,17 @@
                     <div class="card">
                         <img class="card-img-top" src="{{ asset('images/bg-title-01.jpg') }}" alt="Card image cap">
                         <div class="card-body">
-                            <h4 class="card-title mb-3">{{ $product->name }}</h4>
+                            <h4 class="card-title mb-3">
+                                <a href="#0" class="js-cd-panel-trigger" data-panel="main">
+                                    {{ $product->name }}
+                                </a>
+                            </h4>
                             <p class="card-text">
                                     {{ $product->description }}
                             </p>
                             <p class="text-info lead">
                                 <strong>- ${{ $product->price }}.00</strong>
-                            </p>                        
+                            </p>
                         </div>
                         <div class="card-footer">
                             <form action="{{ route('shop.guestAdd', $product->slug) }}" method="POST">
@@ -66,6 +70,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 @endsection

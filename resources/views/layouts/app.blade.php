@@ -10,17 +10,15 @@
 
     <title>JYP | @yield('title')</title>
 
-    <!-- Scripts -->
+    <!-- Script -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-
+    <!-- Master Style -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
     <!-- Fontfaces CSS-->
     <link href="{{ asset('css/font-face.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('vendor/font-awesome-4.7/css/font-awesome.min.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('vendor/font-awesome-5/css/fontawesome-all.min.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('vendor/mdi-font/css/material-design-iconic-font.min.css') }}" rel="stylesheet" media="all">
-
     <!-- Vendor CSS-->
     <link href="{{ asset('vendor/animsition/animsition.min.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('vendor/bootstrap-progressbar/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet" media="all">
@@ -29,8 +27,31 @@
     <link href="{{ asset('vendor/slick/slick.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('vendor/select2/select2.min.css') }}" rel="stylesheet" media="all">
     <link href="{{ asset('vendor/perfect-scrollbar/perfect-scrollbar.css') }}" rel="stylesheet" media="all">
-
+    <!-- Custom Styles -->
     <link href="{{ asset('css/theme.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet" media="all">
+    <link href="{{ asset('css/slidePanel.css') }}" rel="stylesheet" media="all">
+    <style>
+        .cd-breadcrumb.custom-icons li > *::before, .cd-multi-steps.custom-icons li > *::before {
+            /* add a custom icon before each item */
+            content: '';
+            display: inline-block;
+            height: 20px;
+            width: 20px;
+            margin-right: .4em;
+            margin-top: -2px;
+            background: url({{ asset('images/cd-custom-icons-01.svg') }}) no-repeat 0 0;
+            vertical-align: middle;
+        }
+        .cd-breadcrumb.custom-separator li::after, .cd-multi-steps.custom-separator li::after {
+            /* replace the default arrow separator with a custom icon */
+            content: '';
+            height: 16px;
+            width: 16px;
+            background: url({{ asset('images/cd-custom-separator.svg') }}) no-repeat center center;
+            /* vertical-align: middle; */
+        }
+    </style>
 </head>
 <body>
     <div id="app">
@@ -89,14 +110,18 @@
         <main class="py-4">
             @yield('content')
         </main>
+        <div class="container">
+            <div class="col-md-12">
+                <div class="copyright">
+                    <p>Copyright © 2018 Logic8. All rights reserved. Made by <a href="https://www.facebook.com/johnyonardpauly">John Yonard Pauly</a>.</p>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Jquery JS-->
     <script src="{{ asset('vendor/jquery-3.2.1.min.js') }}"></script>
-    <!-- Bootstrap JS-->
-
     <script src="{{ asset('vendor/bootstrap-4.1/popper.min.js') }}"></script>
-    {{-- <script src="{{ asset('vendor/bootstrap-4.1/bootstrap.min.js') }}"></script> --}}
     <!-- Vendor JS -->
     <script src="{{ asset('vendor/slick/slick.min.js') }}"></script>
     <script src="{{ asset('vendor/wow/wow.min.js') }}"></script>
@@ -110,24 +135,5 @@
     <script src="{{ asset('vendor/select2/select2.min.js') }}"></script>
     <!-- Main JS-->
     <script src="{{ asset('js/stats.js') }}"></script>
-    {{-- <script>
-        $(document).ready( () => {
-            const className = document.querySelectorAll('.class-qty');
-            Array.from(className).forEach( (el) => {
-                el.addEventListener('change', () => {
-                    // alert('changed');
-                    axios.put('cart/3', {
-                        quantity: 3
-                    })
-                    .then( (res) => {
-                        console.log(res);
-                    })
-                    .catch( (err) => {
-                        console.log(err.response);
-                    })
-                });
-            });
-        });
-    </script> --}}
 </body>
 </html>
