@@ -11,15 +11,8 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::get('/', 'ShopController@index')->name('shop.index');
-Route::post('/{slug}', 'ShopController@guestAddToCart')->name('shop.guestAdd');
-Route::get('/cart', 'ShopController@showCart')->name('shop.cart');
-
 Auth::routes();
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,8 +20,7 @@ Auth::routes();
 */
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
-    Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');    
-    // Route::resource('cart', 'CartController');
+    Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
     Route::resource('checkout', 'CheckoutController');
 });
 /*
@@ -54,3 +46,8 @@ Route::middleware('auth:admin')->group(function () {
 | Admin Routes
 |--------------------------------------------------------------------------
 */
+
+Route::get('/', 'ShopController@index')->name('shop.index');
+Route::post('/{slug}', 'ShopController@guestAddToCart')->name('shop.guestAdd');
+Route::get('/cart', 'ShopController@showCart')->name('shop.cart');
+Route::put('/cart/{id}', 'ShopController@updateCartItemQty')->name('shop.updateCartItemQty');

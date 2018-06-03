@@ -3,40 +3,60 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\GuestCart;
 use \DB;
+use \Session;
 use Illuminate\Http\Request;
 
 class ShopController extends Controller
 {
     public function index()
     {
+        // Session::forget('cart');
+        // dd(Session::all());
         $products = Product::inRandomOrder()->paginate(9);
         return view('welcome')->with('products', $products);
     }
 
-    public function guestAddToCart($slug)
+    public function guestAddToCart(Request $request, $slug)
     {
-        $item = Product::guestGetItem($slug);
-        // dd($item);
-        $data = [];
-        foreach ($item as $i) {
-            $data[] = [
-                'item' => $i->name,
-                'price' => $i->price,
-                'user_id' => 0,
-                'created_at' => now(),
-                'updated_at' => now()
-            ];
-        }
-        $new = session('guestCart', $data);
-        dd($new);
-        // $data = session('guestCart');
-        // dd($data);
-        // dd($data[0]['item']);
+        $cartItem = Product::where('slug', $slug)->get();
+        $oldItem = Session::has('cart') ? Session::get('cart') : null;
+        // dd($oldItem);
+        $cart = new GuestCart($oldItem);
+        $cart->addGuestItemCart($cartItem, $cartItem[0]->slug);
+
+        $request->session()->put('cart', $cart);
+        // dd($request->session()->get('cart'));
+        return redirect()->route('shop.index')->with('addSuccess', 'Item was successfully added to cart!');
     }
 
     public function showCart()
     {
-        return view('cart');
+        if (!Session::has('cart')) {
+            return view('cart')->with([
+                'products' => []
+            ]);
+            // return view('cart');
+        }
+
+        $guestCart = Session::get('cart');
+        // dd($guestCart);
+        $cart = new GuestCart($guestCart);
+        // dd($cart->items['iphone-x']['item'][0]['price']);
+        // dd($cart->items['iphone-x']['item'][0]['name']);
+        // dd($cart->totalQty);
+        // dd($cart->totalPrice);
+
+        $result =  view('cart')->with([
+            'products' => $cart->items,
+            'totalQty' => $cart->totalQty,
+            'totalPrice' => $cart->totalPrice
+        ]);
+        // dd($result);
+        // dd($cart->items);
+        // dd($cart->totalPrice);
+        // dd($result->products->totalPrice);
+        return $result;
     }
 }

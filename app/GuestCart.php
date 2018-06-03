@@ -5,36 +5,38 @@ namespace App;
 class GuestCart
 {
     public $items = null;
-    public $qty = 0;
-    public $price = 0;
+    public $totalQty = 0;
+    public $totalPrice = 0;
 
     public function __construct($sessionData)
     {
         if ($sessionData) {
             $this->items = $sessionData->items;
-            $this->qty = $sessionData->qty;
-            $this->price = $sessionData->price;
+            $this->totalQty = $sessionData->totalQty;
+            $this->totalPrice = $sessionData->totalPrice;
         }
     }
 
-    public function addGuestItemCart($item, $id)
+    public function addGuestItemCart($item, $slug)
     {
-        $item = [
-            'quantity' => 0,
-            'price' =>$item->price,
-            'item' => $item
+        $storedItem = [
+            'item' => $item,
+            'price' => $item[0]->price,
+            'qty' => 0
         ];
 
+        // dd($storedItem['price']);
+
         if ($this->items) {
-            if (array_key_exists($id, $this->items)) {
-                $item = $this->items[$id];
+            if (array_key_exists($slug, $this->items)) {
+                $storedItem = $this->items[$slug];
             }
         }
 
-        $item['quantity']++;
-        $item['price'] = $item->price * $item['quantity'];
-        $this->items[$id] = $item;
-        $this->qty++;
-        $this->price += $item->price;
+        $storedItem['qty']++;
+        $storedItem['price'] = $item[0]->price * $storedItem['qty'];
+        $this->items[$slug] = $storedItem;
+        $this->totalQty++;
+        $this->totalPrice += $item[0]->price;
     }
 }

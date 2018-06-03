@@ -46,7 +46,14 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" style="color: #c0c0c0" href="{{ route('shop.cart') }}">
+                                Cart 
+                                <span class="badge badge-info">
+                                    {{ Session::has('cart') ? Session::get('cart')->totalQty : 0 }}
+                                </span>
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -103,5 +110,24 @@
     <script src="{{ asset('vendor/select2/select2.min.js') }}"></script>
     <!-- Main JS-->
     <script src="{{ asset('js/stats.js') }}"></script>
+    {{-- <script>
+        $(document).ready( () => {
+            const className = document.querySelectorAll('.class-qty');
+            Array.from(className).forEach( (el) => {
+                el.addEventListener('change', () => {
+                    // alert('changed');
+                    axios.put('cart/3', {
+                        quantity: 3
+                    })
+                    .then( (res) => {
+                        console.log(res);
+                    })
+                    .catch( (err) => {
+                        console.log(err.response);
+                    })
+                });
+            });
+        });
+    </script> --}}
 </body>
 </html>

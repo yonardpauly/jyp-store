@@ -2,10 +2,33 @@
 @section('title', 'PH')
 
 @section('content')
+
     <div class="container">
-            <a href="{{ route('shop.cart') }}">Cart</a>
-        
+        <div class="jumbotron">
+            <h1>Home Page</h1>
+            <hr>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quam! 
+                Odit molestias architecto recusandae doloremque sapiente qui aut molestiae 
+                praesentium reprehenderit pariatur? Voluptatem eos harum facilis tenetur laudantium 
+                odio voluptate!
+            </p>
+        </div>
+    </div>
+
+    <div class="container">
         <div class="row justify-content-center">
+            <div class="col-md-12">
+                @if( session('addSuccess') )
+                    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+                        <span class="badge badge-pill badge-success">Success</span>
+                        {{ session('addSuccess') }}
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                @endif
+            </div>
             @if( count($products) < 1 )
                 <div class="col-md-6 offset-md-3">
                     <h1>No Items found. Please contact system administrator.</h1>

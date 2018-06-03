@@ -31,7 +31,8 @@ class Product extends Model
         $query = DB::table('products')
                 ->select(
                     'name',
-                    'price'
+                    'price',
+                    'slug'
                 )
                 ->where('slug', $slug);
         $result = $query->get();
