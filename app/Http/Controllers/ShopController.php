@@ -75,6 +75,7 @@ class ShopController extends Controller
                     'products' => []
                 ]);
             }
+
             $cartItems = Session::get('cart');
             $cart = new GuestCart($cartItems);
 
@@ -92,6 +93,8 @@ class ShopController extends Controller
 
     public function storeCheckout()
     {
-        
+        // $items = Session::get('cart');
+        // $cart = new GuestCart($items);
+        // dd($cart);
     }
 }

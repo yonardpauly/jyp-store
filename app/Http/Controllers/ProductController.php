@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Admin;
+use \Auth;
 use App\ItemCategory;
 use \DB;
 use Illuminate\Http\Request;
@@ -17,7 +19,16 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::orderBy('updated_at', 'desc')->paginate(3);
-        return view('products.index', compact('products', $products));
+        $admins = Admin::setAdminInfo(Auth::user()->name);
+        $data = [];
+        foreach ($admins as $admin) {
+            $data[] = $admin;
+        }
+        return view('products.index')->with([
+            'products' => $products,
+            'name' => $data[0]->name,
+            'email' => $data[0]->email
+        ]);
     }
 
     /**

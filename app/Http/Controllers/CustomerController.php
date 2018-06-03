@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Admin;
+use \Auth;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -15,8 +17,17 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = User::showCustomers();
+        $admins = Admin::setAdminInfo(Auth::user()->name);
+        $data = [];
+        foreach ($admins as $admin) {
+            $data[] = $admin;
+        }
         // dd($customers);
-        return view('customers.index', compact('customers', $customers));
+        return view('customers.index')->with([
+            'customers' => $customers,
+            'name' => $data[0]->name,
+            'email' => $data[0]->email
+        ]);
     }
 
     /**

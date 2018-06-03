@@ -4,11 +4,14 @@
 @section('content')
 
     <div class="container">
+        
         <div class="jumbotron">
             <h1>Checkout Page</h1>
             <hr>
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quam! Odit molestias architecto recusandae doloremque sapiente qui aut molestiae praesentium reprehenderit pariatur? Voluptatem eos harum facilis tenetur laudantium odio voluptate!
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quam! Odit molestias 
+                architecto recusandae doloremque sapiente qui aut molestiae praesentium reprehenderit pariatur? 
+                Voluptatem eos harum facilis tenetur laudantium odio voluptate!
             </p>
             <nav>
                 <ol class="cd-multi-steps text-bottom count">
@@ -22,6 +25,7 @@
                 </ol>
             </nav>
         </div>
+
     </div>
 
     <div class="container">
@@ -106,9 +110,11 @@
                 </table>
             </div>
         </div>
+
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <form action="">
+                <form action="{{ route('shop.storeCheckout') }}" method="POST">
+                    @csrf
                     <button type="submit" class="btn btn-lg btn-block btn-primary">Proceed to Buy</button>
                 </form>
             </div>

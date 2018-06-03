@@ -15,15 +15,10 @@ Auth::routes();
 
 /*
 |--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
-
-/*
-|--------------------------------------------------------------------------
 | Admin Routes
 |--------------------------------------------------------------------------
 */
+
 Route::prefix('admin')->group(function () {
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
@@ -37,18 +32,20 @@ Route::middleware('auth:admin')->group(function () {
     Route::resource('products', 'ProductController');
     Route::resource('item_categories', 'ItemCategoryController');
 });
+
 /*
 |--------------------------------------------------------------------------
-| Admin Routes
+| Customer Routes
 |--------------------------------------------------------------------------
 */
 
 Route::get('/', 'ShopController@index')->name('shop.index');
 Route::post('/{slug}', 'ShopController@guestAddToCart')->name('shop.guestAdd');
 Route::get('/cart', 'ShopController@showCart')->name('shop.cart');
-// Route::put('/cart/{id}', 'ShopController@updateCartItemQty')->name('shop.updateCartItemQty');
+
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
     Route::get('/checkout', 'ShopController@showCheckout')->name('shop.checkout');
+    Route::post('/checkout', 'ShopController@storeCheckout')->name('shop.storeCheckout');
 });

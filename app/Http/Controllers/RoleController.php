@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Role;
+use App\Admin;
+use \Auth;
 use \DB;
 use Illuminate\Http\Request;
 
@@ -16,7 +18,16 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::orderBy('id', 'desc')->paginate(3);
-        return view('roles.index', compact('roles', $roles));
+        $admins = Admin::setAdminInfo(Auth::user()->name);
+        $data = [];
+        foreach ($admins as $admin) {
+            $data[] = $admin;
+        }
+        return view('roles.index')->with([
+            'roles' => $roles,
+            'name' => $data[0]->name,
+            'email' => $data[0]->email
+        ]);
     }
 
     /**

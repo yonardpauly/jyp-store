@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\ItemCategory;
 use App\Product;
+use App\Admin;
+use \Auth;
 use \DB;
 
 use Illuminate\Http\Request;
@@ -26,8 +28,19 @@ class ItemCategoryController extends Controller
      */
     public function index()
     {
+        $admins = Admin::setAdminInfo(Auth::user()->name);
+        $data = [];
+        foreach ($admins as $admin) {
+            $data[] = $admin;
+        }
+        
         $cats = ItemCategory::orderBy('updated_at', 'desc')->paginate(5);
-        return view('item_categories.index', compact('cats', $cats));
+        // dd($cats);
+        return view('item_categories.index')->with([
+            'cats' => $cats,
+            'name' => $data[0]->name,
+            'email' => $data[0]->email
+        ]);
     }
 
     /**

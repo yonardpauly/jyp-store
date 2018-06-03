@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Admin;
+use \Auth;
 
 class AdminController extends Controller
 {
@@ -23,6 +25,15 @@ class AdminController extends Controller
      */
     public function index()
     {
-        return view('admin');
+        $admins = Admin::setAdminInfo(Auth::user()->name);
+        $data = [];
+        foreach ($admins as $admin) {
+            $data[] = $admin;
+        }
+        // dd($data[0]->name);
+        return view('admin')->with([
+            'name' => $data[0]->name,
+            'email' => $data[0]->email
+        ]);
     }
 }

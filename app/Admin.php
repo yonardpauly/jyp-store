@@ -2,6 +2,8 @@
 
 namespace App;
 
+use \Auth;
+use \DB;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -28,4 +30,16 @@ class Admin extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public static function setAdminInfo($admin_id)
+    {
+        $query = DB::table('admins')
+            ->select(
+                'name',
+                'email'
+            );
+        $result = $query->get();
+        // dd($result);
+        return $result;
+    }
 }

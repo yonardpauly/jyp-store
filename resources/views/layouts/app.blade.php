@@ -67,19 +67,20 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" style="color: #c0c0c0" href="{{ route('shop.cart') }}">
-                                Cart 
-                                <span class="badge badge-info">
-                                    {{ Session::has('cart') ? Session::get('cart')->totalQty : 0 }}
-                                </span>
-                            </a>
-                        </li>
+
                     </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
+                        <li class="nav-item">
+                            <a class="nav-link" style="color: #c0c0c0" href="{{ route('shop.cart') }}">
+                                <i class="fa fa-lg fa-shopping-cart"></i>
+                                <span class="badge badge-info">
+                                    {{ Session::has('cart') ? Session::get('cart')->totalQty : 0 }}
+                                </span>
+                            </a>
+                        </li>
                         @guest
                             <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
                             <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
