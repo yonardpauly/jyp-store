@@ -18,9 +18,11 @@ class CreateSalesTransactionsTable extends Migration
             $table->date('transaction_date')->index();
             $table->string('order_code')->unique();
             $table->string('customer_email');
+            $table->text('items');
             $table->integer('sold_quantity')->unsigned();
             $table->integer('total_amount')->unsigned();
             $table->boolean('is_approved')->default(0);
+            $table->integer('user_id')->unsigned()->index();
             $table->timestamps();
         });
     }

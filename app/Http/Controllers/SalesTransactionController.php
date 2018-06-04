@@ -14,7 +14,9 @@ class SalesTransactionController extends Controller
      */
     public function index()
     {
-        // return view('admin.index');
+        
+        // dd($trans);
+        return view('admin.sales');
     }
 
     /**

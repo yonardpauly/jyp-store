@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\SalesTransaction;
 use App\Admin;
 use \Auth;
 
@@ -26,6 +27,7 @@ class AdminController extends Controller
     public function index()
     {
         $admins = Admin::setAdminInfo(Auth::user()->name);
+        $trans = SalesTransaction::orderBy('created_at', 'desc')->paginate(5);
         $data = [];
         foreach ($admins as $admin) {
             $data[] = $admin;
@@ -33,7 +35,8 @@ class AdminController extends Controller
         // dd($data[0]->name);
         return view('admin')->with([
             'name' => $data[0]->name,
-            'email' => $data[0]->email
+            'email' => $data[0]->email,
+            'trans' => $trans
         ]);
     }
 }

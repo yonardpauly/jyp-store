@@ -78,6 +78,7 @@ class ShopController extends Controller
 
             $cartItems = Session::get('cart');
             $cart = new GuestCart($cartItems);
+            // dd($cart->items);
 
             $customers = User::customerCheckOutInfo(Auth::user()->id);
 
@@ -91,10 +92,8 @@ class ShopController extends Controller
         return $redirectPath;
     }
 
-    public function storeCheckout()
-    {
-        // $items = Session::get('cart');
-        // $cart = new GuestCart($items);
-        // dd($cart);
-    }
+    // public function storeCheckout()
+    // {
+        
+    // }
 }

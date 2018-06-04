@@ -4,7 +4,11 @@
 @section('content')
 
     <div class="container">
-        
+        @if( session('orderError') )
+            <div class="alert alert-danger">
+                {{ session('orderError') }}
+            </div>
+        @endif
         <div class="jumbotron">
             <h1>Checkout Page</h1>
             <hr>
@@ -50,17 +54,17 @@
                                 </tr>
                             @else
                                 @foreach( $products as $item )
-                                <tr>
-                                    <td width="30%">{{ $item['item'][0]['name'] }}</td>
-                                    <td width="15%">₱{{ $item['item'][0]['price'] }}.00</td>
-                                    <td>{{ $item['qty'] }}</td>
-                                    <td width="25%">{{ $item['price'] }}</td>
-                                    <td width="15%">
-                                        <button class="item" title="Remove this item">
-                                            <i class="zmdi zmdi-delete text-muted"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td width="30%">{{ $item['item'][0]['name'] }}</td>
+                                        <td width="15%">₱{{ $item['item'][0]['price'] }}.00</td>
+                                        <td>{{ $item['qty'] }}</td>
+                                        <td width="25%">{{ $item['price'] }}</td>
+                                        <td width="15%">
+                                            <button class="item" title="Remove this item">
+                                                <i class="zmdi zmdi-delete text-muted"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
                                 @endforeach
                             @endif
 
@@ -72,12 +76,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+
                                     @foreach( $customers as $customer )
                                     <tr>
                                         <td>{{ $customer->name }}</td>
                                         <td>{{ $customer->email }}</td>
                                     </tr>
                                     @endforeach
+                                    
                                 </tbody>
                             </table>
                         </tbody>

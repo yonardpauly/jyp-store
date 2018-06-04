@@ -4,6 +4,11 @@
 @section('content')
 
     <div class="container">
+        @if( session('orderSuccess') )
+            <div class="alert alert-success">
+                {{ session('orderSuccess') }}
+            </div>
+        @endif
         <div class="jumbotron">
             <h1>Home Page</h1>
             <hr>

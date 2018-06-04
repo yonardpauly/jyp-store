@@ -193,7 +193,7 @@
                                         <img src="{{ asset('images/icon/avatar-01.jpg') }}" alt="John Doe">
                                     </div>
                                     <div class="content">
-                                        <a class="js-acc-btn" href="#">{{ $name }}</a>
+                                        <a class="js-acc-btn" href="#">John Yonard</a>
                                     </div>
                                     <div class="account-dropdown js-dropdown">
                                         <div class="info clearfix">
@@ -204,9 +204,9 @@
                                             </div>
                                             <div class="content">
                                                 <h5 class="name">
-                                                    <a href="#">{{ $name }}</a>
+                                                    <a href="#">John Yonard</a>
                                                 </h5>
-                                                <span class="email">{{ $email }}</span>
+                                                <span class="email">yonard@admin.com</span>
                                             </div>
                                         </div>
                                         <div class="account-dropdown__body">
@@ -247,7 +247,6 @@
     <!-- Bootstrap JS-->
 
     <script src="{{ asset('vendor/bootstrap-4.1/popper.min.js') }}"></script>
-    {{-- <script src="{{ asset('vendor/bootstrap-4.1/bootstrap.min.js') }}"></script> --}}
     <!-- Vendor JS -->
     <script src="{{ asset('vendor/slick/slick.min.js') }}"></script>
     <script src="{{ asset('vendor/wow/wow.min.js') }}"></script>
