@@ -46,9 +46,9 @@
                                 @foreach( $products as $item )
                                 <tr>
                                     <td width="30%">{{ $item['item'][0]['name'] }}</td>
-                                    <td width="15%">{{ money_format('₱%i', $item['item'][0]['price']) }}</td>
+                                    <td width="15%">{{ '₱'. number_format($item['item'][0]['price'], 2) }}</td>
                                     <td>{{ $item['qty'] }}</td>
-                                    <td width="25%">{{ money_format('₱%i', $item['price']) }}</td>
+                                    <td width="25%">{{ '₱'. number_format($item['price'], 2) }}</td>
                                     <td width="15%">
                                         <button class="item" title="Remove this item">
                                             <i class="zmdi zmdi-delete text-muted"></i>
@@ -88,7 +88,7 @@
                             </td>
                             <td>
                                 <h2>
-                                    <span class="badge badge-info">{{ money_format('₱%i', $totalPrice) }}</span>
+                                    <span class="badge badge-info">{{ '₱'. number_format($totalPrice, 2) }}</span>
                                 </h2>
                             </td>
                         </tr>

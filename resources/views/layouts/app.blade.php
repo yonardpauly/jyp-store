@@ -11,8 +11,11 @@
     <title>JYP | @yield('title')</title>
 
     <!-- Script -->
+    <script src="{{ asset('js/timeline.js') }}"></script>        
     <script src="{{ asset('js/app.js') }}" defer></script>
+    
     <!-- Master Style -->
+    <link href="{{ asset('css/timeline.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Fontfaces CSS-->
     <link href="{{ asset('css/font-face.css') }}" rel="stylesheet" media="all">
@@ -91,7 +94,7 @@
                                 </a>
 
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="#">My Dashboard <span class="badge badge-info"> 5</span></a>
+                                    <a class="dropdown-item" href="{{ route('home') }}">My Dashboard <span class="badge badge-info"> 5</span></a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -125,6 +128,9 @@
     <script src="{{ asset('vendor/jquery-3.2.1.min.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap-4.1/popper.min.js') }}"></script>
     <!-- Vendor JS -->
+    <script src="{{ asset('js/typedSample.js') }}"></script>
+    <script src="{{ asset('js/typed.min.js') }}"></script>
+
     <script src="{{ asset('vendor/slick/slick.min.js') }}"></script>
     <script src="{{ asset('vendor/wow/wow.min.js') }}"></script>
     <script src="{{ asset('vendor/animsition/animsition.min.js') }}"></script>
@@ -137,5 +143,16 @@
     <script src="{{ asset('vendor/select2/select2.min.js') }}"></script>
     <!-- Main JS-->
     <script src="{{ asset('js/stats.js') }}"></script>
+    <script>
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-11539016-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
 </body>
 </html>

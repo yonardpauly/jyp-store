@@ -40,6 +40,7 @@ class ProductController extends Controller
     public function create()
     {
         $cats = ItemCategory::orderBy('name', 'asc')->get();
+        // dd($cats);
         return view('products.create', compact('cats', $cats));
     }
 
@@ -64,7 +65,7 @@ class ProductController extends Controller
 
         $data = [
             'name' => $request->input('name'),
-            'item_category_id' => $request->input('product_type'),
+            'item_categories_id' => $request->input('product_type'),
             'description' => $request->input('description'),
             'price' => $request->input('price'),
             'quantity' => $request->input('quantity'),
@@ -116,7 +117,7 @@ class ProductController extends Controller
 
         $data = [
             'name' => $request->input('name'),
-            'item_category_id' => $request->input('product_type'),
+            'item_categories_id' => $request->input('product_type'),
             'description' => $request->input('description'),
             'price' => $request->input('price'),
             'quantity' => $request->input('quantity'),

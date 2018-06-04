@@ -24,6 +24,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::resource('roles', 'RoleController');
     Route::resource('products', 'ProductController');
     Route::resource('item_categories', 'ItemCategoryController');
+    Route::post('/orderFeedback/{order_id}', 'AdminController@submitOrderFeedBack')->name('admin.submitOrderFeedback');
     Route::get('/orderFeedback/{order_id}', 'AdminController@orderFeedback')->name('admin.orderFeedback');
 });
 
@@ -43,7 +44,7 @@ Route::get('/', 'ShopController@index')->name('shop.index');
 Route::post('/{slug}', 'ShopController@guestAddToCart')->name('shop.guestAdd');
 Route::get('/cart', 'ShopController@showCart')->name('shop.cart');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:web')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
     Route::get('/users/logout', 'Auth\LoginController@userLogout')->name('user.logout');
     Route::get('/checkout', 'ShopController@showCheckout')->name('shop.checkout');

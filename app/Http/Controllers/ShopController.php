@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Product;
 use App\User;
+use App\Admin;
 use App\GuestCart;
 use \DB;
 use \Session;
@@ -38,12 +39,16 @@ class ShopController extends Controller
 
     public function showCart()
     {
-        if (!Session::has('cart')) {
-            return view('cart')->with([
-                'products' => [],
-                'totalQty' => null,
-                'totalPrice' => null
-            ]);
+        if (Auth::guard('admin')->check()) {
+            return view('admin');
+        } else {
+            if (!Session::has('cart')) {
+                return view('cart')->with([
+                    'products' => [],
+                    'totalQty' => null,
+                    'totalPrice' => null
+                ]);
+            }
         }
 
         $guestCart = Session::get('cart');
@@ -53,12 +58,16 @@ class ShopController extends Controller
         // dd($cart->items['iphone-x']['item'][0]['name']);
         // dd($cart->totalQty);
         // dd($cart->totalPrice);
-
-        $result =  view('cart')->with([
-            'products' => $cart->items,
-            'totalQty' => $cart->totalQty,
-            'totalPrice' => $cart->totalPrice
-        ]);
+        if (Auth::guard('admin')->check()) {
+            return view('admin');
+        } else {
+            $result =  view('cart')->with([
+                'products' => $cart->items,
+                'totalQty' => $cart->totalQty,
+                'totalPrice' => $cart->totalPrice
+            ]);
+        }
+        
         // dd($result);
         // dd($cart->items);
         // dd($cart->totalPrice);
@@ -83,13 +92,15 @@ class ShopController extends Controller
             // dd($cart->items);
 
             $customers = User::customerCheckOutInfo(Auth::user()->id);
-
-            $redirectPath = view('checkout')->with([
-                'products' => $cart->items,
-                'totalQty' => $cart->totalQty,
-                'totalPrice' => $cart->totalPrice,
-                'customers' => $customers
-            ]);
+            if (Auth::guard('web')->check()) {
+                $redirectPath = view('admin');
+                $redirectPath = view('checkout')->with([
+                    'products' => $cart->items,
+                    'totalQty' => $cart->totalQty,
+                    'totalPrice' => $cart->totalPrice,
+                    'customers' => $customers
+                ]);
+            }
         }
         return $redirectPath;
     }

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\SalesTransaction;
+use App\Order;
 use App\Admin;
 use \Auth;
+use \DB;
 
 class AdminController extends Controller
 {
@@ -28,7 +30,7 @@ class AdminController extends Controller
     {
         $admins = Admin::setAdminInfo(Auth::user()->name);
         $trans = SalesTransaction::orderBy('created_at', 'desc')->paginate(5);
-        $totalSales = money_format( '₱%i', SalesTransaction::trackTotalSales() );
+        $totalSales = '₱'. number_format(SalesTransaction::trackTotalSales(), 2);
         $totalTrans = SalesTransaction::trackTotalTransactions();
         $totalProds = SalesTransaction::trackTotalProducts();
         $data = [];
@@ -57,5 +59,29 @@ class AdminController extends Controller
 
         $transSms = $data->get();
         return view('orderFeedback')->with('transSms', $transSms);
+    }
+
+    public function submitOrderFeedBack(Request $req, $order_code)
+    {
+        $this->validate($req, [
+            'sms' => 'required|string'
+        ]);
+        // dd($order_code);
+        $feedbackOrder = SalesTransaction::where('order_code', $order_code)->get();
+        // dd($feedbackOrder[0]);
+        $data = new Order;
+        $data->sales_transaction_id = $feedbackOrder[0]['id'];
+        $data->user_id = $feedbackOrder[0]['user_id'];
+        $data->message = $req->input('sms');
+        // dd($data);
+        if ( $data->save() ) {
+            // dd($data);
+            DB::table('sales_transactions')
+            ->where('order_code', $order_code)
+            ->update(['order_status_id' => 2]);
+            return redirect()->route('admin.dashboard')->with('acceptOrderSuccess', 'The order you selected has been approved and will be ready to be claim by its customer.');
+        } else {
+            return redirect()->back()->with('acceptOrderError', 'Something went wrong, please try again.');
+        }
     }
 }

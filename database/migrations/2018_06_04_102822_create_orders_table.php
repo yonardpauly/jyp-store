@@ -6,8 +6,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateOrdersTable extends Migration
 {
-    public $defaultSms = 'Thank you for shopping at JYP Store. Your ordered item(s) is/are ready to claim now. Please proceed to our main branch to claim your order. Thank you!';
-
     /**
      * Run the migrations.
      *
@@ -17,9 +15,9 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('sales_transaction_id')->unsigned();
+            $table->string('sales_transaction_id');
             $table->integer('user_id')->unsigned();
-            $table->text('message')->default($defaultSms)->nullable();
+            $table->string('message');
             $table->timestamps();
         });
     }

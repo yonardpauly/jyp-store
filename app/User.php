@@ -37,7 +37,7 @@ class User extends Authenticatable
                 'email',
                 'created_at'
             )
-        ->orderBy('name', 'asc');
+        ->orderBy('created_at', 'desc');
         $result = $query->paginate(3);
         return $result;
     }

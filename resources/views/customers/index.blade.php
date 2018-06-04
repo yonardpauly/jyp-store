@@ -75,7 +75,9 @@
                                 <tbody>
                                     @if( count($customers) < 1 )
                                         <tr class="tr-shadow">
-                                            <td colspan="4" class="bg-warning text-center">No roles found</td>
+                                            <td colspan="5" class="text-info text-center">
+                                                <h3>No customer(s) found yet.</h3>
+                                            </td>
                                         </tr>
                                     @else
                                         @foreach( $customers as $customer )

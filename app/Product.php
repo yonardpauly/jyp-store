@@ -14,7 +14,7 @@ class Product extends Model
 
     protected $fillable = [
         'name',
-        'item_category_id',
+        'item_categories_id',
         'description',
         'price',
         'quantity',
@@ -23,7 +23,7 @@ class Product extends Model
 
     public function item_category()
     {
-        return $this->belongsTo('App\ItemCategory');
+        return $this->belongsTo('App\ItemCategory', 'item_categories_id', 'id');
     }
 
     public static function guestGetItem($slug)

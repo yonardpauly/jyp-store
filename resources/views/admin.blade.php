@@ -72,10 +72,22 @@
                     </div>
                 </div>
 
+                <div class="row justify-content-center">
+                    @if( session('acceptOrderSuccess') )
+                        <div class="sufee-alert alert with-close alert-success alert-dismissible fade show">
+                            <span class="badge badge-pill badge-success">Success!</span>
+                            {{ session('acceptOrderSuccess') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">×</span>
+                            </button>
+                        </div>
+                    @endif
+                </div>
+
                 <div class="row">
                     <div class="col-lg-12">
                         <h2 class="title-1 m-b-25">Sales Transactions</h2>
-                        <div class="table-responsive table--no-card m-b-40">
+                        <div class="table-responsive table--no-card m-b-10">
                             <table class="table table-borderless table-striped table-earning text-center">
                                 <thead>
                                     <tr>
@@ -112,8 +124,9 @@
                                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".showItems">Show Items</button>
                                             </td>
                                             <td>{{ $tran->sold_quantity }}</td>
-                                            <td>{{ money_format('₱%i', $tran->total_amount) }}</td>
+                                            <td>{{ '₱'. number_format($tran->total_amount, 2) }}</td>
                                             <td>
+                                                @if( $tran->order_status_id == 1 )
                                                 <div class="table-data-feature">
                                                     <a href="{{ route('admin.orderFeedback', $tran->order_code) }}" class="item" title="Approve">
                                                         <i class="fa fa-arrow-up"></i>
@@ -123,6 +136,9 @@
                                                         <i class="fa fa-arrow-down"></i>
                                                     </a>
                                                 </div>
+                                                @else
+                                                <span class="badge badge-success">Completed</span>
+                                                @endif
                                             </td>
                                         </tr>
                                         @endforeach
@@ -130,8 +146,19 @@
                                 </tbody>
                             </table>
                         </div>
+
+                        <div class="container">
+                            <div class="row">
+                                <div class="ml-auto">
+                                    {{ $trans->links() }}
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
+
                 </div>
+
 
             </div>
         </div>
