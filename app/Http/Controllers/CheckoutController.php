@@ -43,7 +43,7 @@ class CheckoutController extends Controller
         $guestCart = Session::get('cart');
         $cart = new GuestCart($guestCart);
         $trans_date = date('Y-m-d');
-        $order_code = date('now') . Auth::user()->id . $cart->totalQty . $cart->totalPrice;
+        $order_code = date('YmdHms') . Auth::user()->id . $cart->totalQty;
         // dd($order_code);
         $user_email = Auth::user()->email;
         $cartItems = $cart->items;

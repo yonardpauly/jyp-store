@@ -28,6 +28,10 @@ class AdminController extends Controller
     {
         $admins = Admin::setAdminInfo(Auth::user()->name);
         $trans = SalesTransaction::orderBy('created_at', 'desc')->paginate(5);
+        $totalSales = money_format( '₱%i', SalesTransaction::trackTotalSales() );
+        $totalTrans = SalesTransaction::trackTotalTransactions();
+        $totalProds = SalesTransaction::trackTotalProducts();
+        // dd($totalSales);
         $data = [];
         foreach ($admins as $admin) {
             $data[] = $admin;
@@ -36,7 +40,10 @@ class AdminController extends Controller
         return view('admin')->with([
             'name' => $data[0]->name,
             'email' => $data[0]->email,
-            'trans' => $trans
+            'trans' => $trans,
+            'totalSales' => $totalSales,
+            'totalTrans' => $totalTrans,
+            'totalProds' => $totalProds
         ]);
     }
 }

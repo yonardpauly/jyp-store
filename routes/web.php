@@ -13,7 +13,6 @@
 
 Auth::routes();
 Route::post('/checkout', 'CheckoutController@storeCheckout')->name('shop.storeCheckout');
-// Route::get('/admin', 'AdminController@showSalesTrans')->name('admin.sales');
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +24,6 @@ Route::middleware('auth:admin')->group(function () {
     Route::resource('roles', 'RoleController');
     Route::resource('products', 'ProductController');
     Route::resource('item_categories', 'ItemCategoryController');
-    // Route::get('/admin', 'AdminController@showSalesTrans')->name('admin.sales');
 });
 
 Route::prefix('admin')->group(function () {
