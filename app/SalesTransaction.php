@@ -29,4 +29,9 @@ class SalesTransaction extends Model
 		->count('id');
 		return $query;
 	}
+
+	public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

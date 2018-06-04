@@ -28,6 +28,16 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function sales_transactions()
+    {
+        return $this->hasMany('App\SalesTransaction');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany('App\Order');
+    }
+
     public static function showCustomers()
     {
         $query = DB::table('users')
