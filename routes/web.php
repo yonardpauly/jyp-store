@@ -24,6 +24,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::resource('roles', 'RoleController');
     Route::resource('products', 'ProductController');
     Route::resource('item_categories', 'ItemCategoryController');
+    Route::get('/orderFeedback/{order_id}', 'AdminController@orderFeedback')->name('admin.orderFeedback');
 });
 
 Route::prefix('admin')->group(function () {

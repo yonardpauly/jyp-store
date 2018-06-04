@@ -83,7 +83,7 @@
                         <tr class="tr-shadow">
                             <td>
                                 <h2>
-                                    <span class="badge badge-info">{{ $totalQty }}</span>
+                                    <span class="badge badge-info">{{ (!$totalQty) ? 0 : $totalQty }}</span>
                                 </h2>
                             </td>
                             <td>

@@ -18,7 +18,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::orderBy('updated_at', 'desc')->paginate(3);
+        $products = Product::orderBy('updated_at', 'desc')
+        ->paginate(3);
         $admins = Admin::setAdminInfo(Auth::user()->name);
         $data = [];
         foreach ($admins as $admin) {

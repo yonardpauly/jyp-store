@@ -31,7 +31,6 @@ class AdminController extends Controller
         $totalSales = money_format( '₱%i', SalesTransaction::trackTotalSales() );
         $totalTrans = SalesTransaction::trackTotalTransactions();
         $totalProds = SalesTransaction::trackTotalProducts();
-        // dd($totalSales);
         $data = [];
         foreach ($admins as $admin) {
             $data[] = $admin;
@@ -45,5 +44,18 @@ class AdminController extends Controller
             'totalTrans' => $totalTrans,
             'totalProds' => $totalProds
         ]);
+    }
+
+    public function orderFeedback($order_id)
+    {
+        $data = SalesTransaction::where('order_code', $order_id);
+        // dd($transSms[0]['order_code']);
+
+        // if ($transSms[0]['order_code'] !== $order_id) {
+        //     abort(404);
+        // }
+
+        $transSms = $data->get();
+        return view('orderFeedback')->with('transSms', $transSms);
     }
 }

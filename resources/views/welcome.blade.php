@@ -55,11 +55,18 @@
                             <p class="text-info lead">
                                 <strong>- ${{ $product->price }}.00</strong>
                             </p>
+                            <p class="text-info lead">
+                                @if( $product->quantity < 1 )
+                                    <span class="badge badge-warning">Out of Stock</span>
+                                @else
+                                    <span class="badge badge-info">In Stock</span>
+                                @endif
+                            </p>
                         </div>
                         <div class="card-footer">
                             <form action="{{ route('shop.guestAdd', $product->slug) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-primary">Add to Cart</button>                            
+                                <button type="submit" class="btn btn-primary" {{ ($product->quantity) < 1 ? 'disabled' : '' }}>Add to Cart</button>                            
                             </form>
                         </div>
                     </div>

@@ -17,7 +17,9 @@ class ShopController extends Controller
     {
         // Session::forget('cart');
         // dd(Session::all());
-        $products = Product::inRandomOrder()->paginate(9);
+        $products = Product::inRandomOrder()
+        // ->where('quantity', '>', 0)
+        ->paginate(9);
         return view('welcome')->with('products', $products);
     }
 

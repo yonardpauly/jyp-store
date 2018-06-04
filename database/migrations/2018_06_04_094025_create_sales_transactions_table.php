@@ -21,7 +21,7 @@ class CreateSalesTransactionsTable extends Migration
             $table->text('items');
             $table->integer('sold_quantity')->unsigned();
             $table->integer('total_amount')->unsigned();
-            $table->boolean('is_approved')->default(0);
+            $table->boolean('order_status_id')->default(1);
             $table->integer('user_id')->unsigned()->index();
             $table->timestamps();
         });

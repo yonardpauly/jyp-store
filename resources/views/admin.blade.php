@@ -92,14 +92,14 @@
                                 <tbody>
                                     @if( count($trans) < 1 )
                                         <tr>
-                                            <td>No transactions found.</td>
+                                            <td colspan="8">No transactions found. Ginagawa mu?</td>
                                         </tr>
                                     @else
                                         @foreach( $trans as $tran )
                                         <tr>
                                             <td>{{ $tran->transaction_date }}</td>
                                             <td>
-                                                @if( $tran->is_approved == 0 )
+                                                @if( $tran->order_status_id == 1 )
                                                     <span class="badge badge-danger">Pending</span>
                                                 @else
                                                     <span class="badge badge-success">Approved</span>
@@ -115,9 +115,10 @@
                                             <td>{{ money_format('₱%i', $tran->total_amount) }}</td>
                                             <td>
                                                 <div class="table-data-feature">
-                                                    <a href="" class="item" title="Approved">
+                                                    <a href="{{ route('admin.orderFeedback', $tran->order_code) }}" class="item" title="Approve">
                                                         <i class="fa fa-arrow-up"></i>
                                                     </a>
+
                                                     <a href="" class="item" title="Reject">
                                                         <i class="fa fa-arrow-down"></i>
                                                     </a>
