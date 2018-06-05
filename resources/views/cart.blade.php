@@ -8,7 +8,9 @@
             <h1>Cart Page</h1>
             <hr>
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quam! Odit molestias architecto recusandae doloremque sapiente qui aut molestiae praesentium reprehenderit pariatur? Voluptatem eos harum facilis tenetur laudantium odio voluptate!
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quam! Odit molestias 
+                architecto recusandae doloremque sapiente qui aut molestiae praesentium reprehenderit 
+                pariatur? Voluptatem eos harum facilis tenetur laudantium odio voluptate!
             </p>
         </div>
         <nav>
@@ -50,9 +52,9 @@
                                     <td>{{ $item['qty'] }}</td>
                                     <td width="25%">{{ '₱'. number_format($item['price'], 2) }}</td>
                                     <td width="15%">
-                                        <button class="item" title="Remove this item">
+                                        <a class="item" href="{{ route('shop.removeCartItem', $item['item'][0]['slug']) }}" title="Remove this item">
                                             <i class="zmdi zmdi-delete text-muted"></i>
-                                        </button>
+                                        </a>
                                     </td>
                                 </tr>
                                 @endforeach

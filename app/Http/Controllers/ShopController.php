@@ -2,11 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-use App\User;
-use App\Admin;
-use App\GuestCart;
-use App\SalesTransaction;
+use App\{ Product, User, Admin, GuestCart, SalesTransaction };
 use \DB;
 use \Session;
 use \Auth;
@@ -35,7 +31,7 @@ class ShopController extends Controller
     public function showCart()
     {
         if (Auth::guard('admin')->check()) {
-            return view('admin');
+            return redirect()->route('admin.dashboard');
         } else {
             if (!Session::has('cart')) {
                 return view('cart')->with([
@@ -50,15 +46,20 @@ class ShopController extends Controller
         $cart = new GuestCart($guestCart);
 
         if (Auth::guard('admin')->check()) {
-            return view('admin');
+            $result =  redirect()->route('admin.dashboard');
         } else {
-            $result =  view('cart')->with([
+            $result = view('cart')->with([
                 'products' => $cart->items,
                 'totalQty' => $cart->totalQty,
                 'totalPrice' => $cart->totalPrice
             ]);
         }
         return $result;
+    }
+
+    public function removeCartItem(Request $req, $slug)
+    {
+        //
     }
 
     public function showCheckout()

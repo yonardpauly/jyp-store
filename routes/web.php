@@ -42,7 +42,7 @@ Route::prefix('admin')->group(function () {
 Route::post('/checkout', 'ShopController@storeCheckout')->name('shop.storeCheckout')->middleware('auth:web');
 Route::get('/', 'ShopController@index')->name('shop.index');
 Route::post('/{slug}', 'ShopController@guestAddToCart')->name('shop.guestAdd');
-Route::get('/cart', 'ShopController@showCart')->name('shop.cart');
+Route::get('/cart', 'ShopController@showCart')->name('shop.cart')->middleware('auth:web');
 
 Route::middleware('auth:web')->group(function () {
     Route::get('/home', 'HomeController@index')->name('home');
