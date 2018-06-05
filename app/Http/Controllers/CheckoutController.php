@@ -6,7 +6,9 @@ use App\Checkout;
 use App\GuestCart;
 use App\SalesTransaction;
 use Session;
+use App\Product;
 use \Auth;
+use \DB;
 
 use Illuminate\Http\Request;
 
@@ -42,6 +44,42 @@ class CheckoutController extends Controller
     {
         $guestCart = Session::get('cart');
         $cart = new GuestCart($guestCart);
+
+        // foreach ($cart->items as $value) {
+        //     $dd[] = $value;
+        // }
+
+        // dd($dd[0]['item'][0]['name']);
+        // dd(count($cart->items));
+        // dd($dd[0]['item'][0]['slug']);
+        $dd = [];
+        foreach ($cart->items as $key => $value) {
+            $dd[$key] = $value;
+        }
+
+        // dd($dd);
+
+        $updateProduct = [];
+        foreach ($dd as $value) {
+            $updateProduct[] = $value;
+        }
+        // dd($updateProduct);
+
+        $totalItem = [];
+        foreach ($updateProduct as $d) {
+            $totalItem[] = $d;
+        }
+        // dd($totalItem[0]['item'][0]['slug']);
+
+        $totalQty = [];
+        foreach ($updateProduct as $d) {
+            $totalQty[] = $d;
+        }
+        // dd($totalQty[0]['qty']);
+        // dd($itemQties);
+        // dd($itemQties[1]);
+        
+
         $trans_date = date('Y-m-d');
         $order_code = date('YmdHms') . Auth::user()->id . $cart->totalQty;
         // dd($order_code);
@@ -50,17 +88,13 @@ class CheckoutController extends Controller
         $totalQty = $cart->totalQty;
         $totalPrice = $cart->totalPrice;
         $user_id = Auth::user()->id;
-        // dd($items);
+
         $items = [];
         foreach ($cartItems as $key => $value) {
             $items[$key] = implode('~', $value);
         }
-        $new = implode(',', $items);
-        // dd($new);
-        // $itemName = $data[0]['item'][0]['name'];
-        // $itemName = $data[0]['item'][0]['name'];
-        // dd($itemName);
 
+        $new = implode(',', $items);
         $stData = new SalesTransaction;
         $stData->transaction_date = $trans_date;
         $stData->order_code = $order_code;
@@ -71,7 +105,13 @@ class CheckoutController extends Controller
         $stData->user_id = $user_id;
         // dd($stData);
         $result;
+        // dd($stocks);
         if (Auth::check() && $stData->save()) {
+            // for ($i = 0; $i <= count($dd); $i++) {
+            //     DB::table('products')
+            //     ->where('slug', 'like', '%'. $totalItem[$i]['item'][0]['slug'] .'%')
+            //     ->decrement('quantity', 5);
+            // }
             $result = redirect()->route('shop.index')->with('orderSuccess', 'Your order has been successfuly submitted. Your order code is '. $order_code);
         } else {
             $result = redirect()->route('shop.checkout')->with('orderError', 'Something went wrong when processing your order, please try again.');

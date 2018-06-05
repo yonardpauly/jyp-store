@@ -25,10 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $orders = Order::where('user_id', Auth::user()->id)->get();
-        $orders = Order::orderBy('created_at', 'desc')->get();
-        
-        // dd($orders);
+        $orders = Order::where('user_id', Auth::user()->id)->get();
         return view('/home')->with('orders', $orders);
     }
 }

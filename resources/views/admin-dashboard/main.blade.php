@@ -64,11 +64,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('roles.index') }}">
-                            <i class="fas fa-table"></i>Roles
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{ route('products.index') }}">
                             <i class="far fa-check-square"></i>Products
                         </a>
@@ -76,6 +71,11 @@
                     <li>
                         <a href="{{ route('item_categories.index') }}">
                             <i class="far fa-check-square"></i>Products Category
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.reports') }}">
+                            <i class="fas fa-table"></i>Sales Report
                         </a>
                     </li>
                     <li>
@@ -109,11 +109,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('roles.index') }}">
-                            <i class="fas fa-table"></i>Roles
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{ route('products.index') }}">
                             <i class="far fa-check-square"></i>Products
                         </a>
@@ -121,6 +116,11 @@
                     <li>
                         <a href="{{ route('item_categories.index') }}">
                             <i class="far fa-check-square"></i>Products Category
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.reports') }}">
+                            <i class="fas fa-table"></i>Sales Report
                         </a>
                     </li>
                     <li>

@@ -38,4 +38,13 @@ class Product extends Model
         $result = $query->get();
         return $result;
     }
+
+    public static function getStocks($slug)
+    {
+        $query = DB::table('products')
+            ->select('quantity')
+            ->where('slug', $slug);
+        $result = $query->get();
+        return $result;
+    }
 }

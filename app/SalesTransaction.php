@@ -34,4 +34,23 @@ class SalesTransaction extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public static function setFilteredReportByDate($date = null)
+    {
+    	$query = DB::table('sales_transactions')
+    		->select(
+    			'transaction_date',
+    			'order_code',
+    			'customer_email',
+    			'sold_quantity',
+    			'total_amount',
+    			'order_status_id'
+    		);
+    	if (!is_null($date)) {
+    		$query->where('transaction_date', $date);
+    	}
+    	$result = $query->get();
+    	// dd($result);
+    	return $result;
+    }
 }

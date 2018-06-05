@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\SalesTransaction;
 use App\Order;
+use App\Product;
 use App\Admin;
 use \Auth;
 use \DB;
@@ -51,11 +52,6 @@ class AdminController extends Controller
     public function orderFeedback($order_id)
     {
         $data = SalesTransaction::where('order_code', $order_id);
-        // dd($transSms[0]['order_code']);
-
-        // if ($transSms[0]['order_code'] !== $order_id) {
-        //     abort(404);
-        // }
 
         $transSms = $data->get();
         return view('orderFeedback')->with('transSms', $transSms);
@@ -66,8 +62,29 @@ class AdminController extends Controller
         $this->validate($req, [
             'sms' => 'required|string'
         ]);
-        // dd($order_code);
+
+        // $prodId = SalesTransaction::select('items')->get();
+
+        // $aaa = [];
+        // foreach ($prodId as $key => $value) {
+        //     $aaa[] = explode('[{', $prodId);
+        // }
+        // $aaaNew = [];
+        // foreach ($aaa as $key => $value) {
+        //     $aaaNew[] = $aaa[$key][2];
+        // }
+        // $stripped = [];
+        // foreach ($aaaNew as $key => $value) {
+        //     $stripped[] = rtrim($aaaNew[$key], ',');
+        // }
+
+        // $aaaNew2 = [];
+        // foreach ($stripped as $key => $value) {
+        //     $aaaNew2[] = explode('~', $stripped[$key]);
+        // }
+
         $feedbackOrder = SalesTransaction::where('order_code', $order_code)->get();
+
         // dd($feedbackOrder[0]);
         $data = new Order;
         $data->sales_transaction_id = $feedbackOrder[0]['id'];
@@ -75,13 +92,31 @@ class AdminController extends Controller
         $data->message = $req->input('sms');
         // dd($data);
         if ( $data->save() ) {
-            // dd($data);
+            // for ( $i = 0; $i <= count($aaaNew2); $i++ ) {
+            //     DB::table('products')->where('slug', 'like', '%'. $aaaNew2[0][0] .'%')
+            //     ->decrement(['quantity' => $aaaNew2[0][2]]);
+            // }
             DB::table('sales_transactions')
             ->where('order_code', $order_code)
             ->update(['order_status_id' => 2]);
+
             return redirect()->route('admin.dashboard')->with('acceptOrderSuccess', 'The order you selected has been approved and will be ready to be claim by its customer.');
         } else {
             return redirect()->back()->with('acceptOrderError', 'Something went wrong, please try again.');
         }
+    }
+
+    public function showReports()
+    {
+        return view('reports');
+    }
+
+    public function showFilteredReportDate(Request $req)
+    {
+        $date = $req->input('sortDate');
+        // dd($date);
+        $sort = SalesTransaction::setFilteredReportByDate($date);
+        // dd($sort);
+        return view('reports')->with('sort', $sort);
     }
 }

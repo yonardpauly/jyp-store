@@ -13,6 +13,7 @@
 
 Auth::routes();
 Route::post('/checkout', 'CheckoutController@storeCheckout')->name('shop.storeCheckout');
+Route::get('/reports/{date?}', 'AdminController@showFilteredReportDate')->name('admin.searchDate');
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::middleware('auth:admin')->group(function () {
     Route::resource('item_categories', 'ItemCategoryController');
     Route::post('/orderFeedback/{order_id}', 'AdminController@submitOrderFeedBack')->name('admin.submitOrderFeedback');
     Route::get('/orderFeedback/{order_id}', 'AdminController@orderFeedback')->name('admin.orderFeedback');
+    Route::get('/reports', 'AdminController@showReports')->name('admin.reports');
 });
 
 Route::prefix('admin')->group(function () {
