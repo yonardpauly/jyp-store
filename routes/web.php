@@ -10,21 +10,19 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Auth::routes();
-Route::post('/checkout', 'CheckoutController@storeCheckout')->name('shop.storeCheckout');
-Route::post('/reports/{date?}', 'AdminController@showFilteredReportDate')->name('admin.searchDate');
-
 /*
 |--------------------------------------------------------------------------
 | Admin Routes
 |--------------------------------------------------------------------------
 */
+
 Route::middleware('auth:admin')->group(function () {
     Route::resource('customers', 'CustomerController');
     Route::resource('roles', 'RoleController');
     Route::resource('products', 'ProductController');
     Route::resource('item_categories', 'ItemCategoryController');
+    
     Route::post('/orderFeedback/{order_id}', 'AdminController@submitOrderFeedBack')->name('admin.submitOrderFeedback');
     Route::get('/orderFeedback/{order_id}', 'AdminController@orderFeedback')->name('admin.orderFeedback');
     Route::get('/reports', 'AdminController@showReports')->name('admin.reports');
@@ -41,7 +39,7 @@ Route::prefix('admin')->group(function () {
 | Customer Routes
 |--------------------------------------------------------------------------
 */
-
+Route::post('/checkout', 'ShopController@storeCheckout')->name('shop.storeCheckout')->middleware('auth:web');
 Route::get('/', 'ShopController@index')->name('shop.index');
 Route::post('/{slug}', 'ShopController@guestAddToCart')->name('shop.guestAdd');
 Route::get('/cart', 'ShopController@showCart')->name('shop.cart');

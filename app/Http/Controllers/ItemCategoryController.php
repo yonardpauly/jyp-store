@@ -21,44 +21,20 @@ class ItemCategoryController extends Controller
     {
         return 'Something went wrong '. $action . ' the '. $var . ', please try again.';
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        $admins = Admin::setAdminInfo(Auth::user()->name);
-        $data = [];
-        foreach ($admins as $admin) {
-            $data[] = $admin;
-        }
-        
         $cats = ItemCategory::orderBy('updated_at', 'desc')->paginate(5);
-        // dd($cats);
         return view('item_categories.index')->with([
             'cats' => $cats,
-            'name' => $data[0]->name,
-            'email' => $data[0]->email
         ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return view('item_categories.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -77,25 +53,11 @@ class ItemCategoryController extends Controller
         return $result;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\ItemCategory  $itemCategory
-     * @return \Illuminate\Http\Response
-     */
     public function edit(ItemCategory $itemCategory)
     {
-        // dd($itemCategory->id);
         return view('item_categories.edit', compact('itemCategory', $itemCategory));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\ItemCategory  $itemCategory
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, ItemCategory $itemCategory)
     {
         $this->validate($request, [
@@ -113,12 +75,6 @@ class ItemCategoryController extends Controller
         return $result;
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\ItemCategory  $itemCategory
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(ItemCategory $itemCategory)
     {
         $result = ( $itemCategory->delete() )

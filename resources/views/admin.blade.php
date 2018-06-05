@@ -40,7 +40,6 @@
                             <div class="overview__inner">
                                 <div class="overview-box clearfix">
                                     <div class="icon">
-                                        {{-- <i class="zmdi zmdi-calendar-note"></i> --}}
                                         <i class="fa fa-list-alt"></i>
                                     </div>
                                     <div class="text">

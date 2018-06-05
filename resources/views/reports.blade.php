@@ -20,21 +20,6 @@
 
                 <div class="row">
 
-                    <div class="col col-md-6 mb-4">
-                        <form action="{{ route('admin.searchDate') }}" method="POST">
-                            @csrf
-                            <div class="input-group">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-primary" type="submit" name="sortDate">
-                                        <i class="fa fa-search"></i> Choose Date
-                                    </button>
-                                    {{-- <a class="btn btn-primary" href="{{ route('admin.searchDate') }}">Sort now</a> --}}
-                                </div>
-                                <input type="date" name="transac_date" class="form-control">
-                            </div>
-                        </form>
-                    </div>
-
                     <div class="col-lg-12">
                         
                         <div class="table-responsive table--no-card m-b-10">
@@ -50,9 +35,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td colspan="8">No Reports found</td>
-                                    </tr>
+                                    @if( count($sort) < 1 )
+                                        <tr>
+                                            <td colspan="8">No Reports found</td>
+                                        </tr>
+                                    @else
                                     @foreach( $sort as $item )
                                     <tr>
                                         <td>{{ $item->transaction_date }}</td>
@@ -63,6 +50,7 @@
                                         <td>{{ $item->total_amount }}</td>
                                     </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
