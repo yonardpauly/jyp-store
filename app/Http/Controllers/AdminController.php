@@ -111,12 +111,10 @@ class AdminController extends Controller
         return view('reports');
     }
 
-    public function showFilteredReportDate(Request $req)
+    public function showFilteredReportDate(Request $req, $date = null)
     {
         $date = $req->input('sortDate');
-        // dd($date);
         $sort = SalesTransaction::setFilteredReportByDate($date);
-        // dd($sort);
         return view('reports')->with('sort', $sort);
     }
 }

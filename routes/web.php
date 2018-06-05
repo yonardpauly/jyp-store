@@ -13,7 +13,7 @@
 
 Auth::routes();
 Route::post('/checkout', 'CheckoutController@storeCheckout')->name('shop.storeCheckout');
-Route::get('/reports/{date?}', 'AdminController@showFilteredReportDate')->name('admin.searchDate');
+Route::post('/reports/{date?}', 'AdminController@showFilteredReportDate')->name('admin.searchDate');
 
 /*
 |--------------------------------------------------------------------------

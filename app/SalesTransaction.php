@@ -47,7 +47,7 @@ class SalesTransaction extends Model
     			'order_status_id'
     		);
     	if (!is_null($date)) {
-    		$query->where('transaction_date', $date);
+    		$query2 = $query->where('transaction_date', $date);
     	}
     	$result = $query->get();
     	// dd($result);

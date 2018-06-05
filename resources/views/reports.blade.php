@@ -21,18 +21,18 @@
                 <div class="row">
 
                     <div class="col col-md-6 mb-4">
-{{--                         <form action="{{ route('admin.searchDate') }}" method="POST">
-                            @csrf --}}
+                        <form action="{{ route('admin.searchDate') }}" method="POST">
+                            @csrf
                             <div class="input-group">
                                 <div class="input-group-btn">
-{{--                                     <button class="btn btn-primary" type="submit" name="sortDate">
+                                    <button class="btn btn-primary" type="submit" name="sortDate">
                                         <i class="fa fa-search"></i> Choose Date
-                                    </button> --}}
-                                    <a class="btn btn-primary" href="{{ route('admin.searchDate') }}">Sort now</a>
+                                    </button>
+                                    {{-- <a class="btn btn-primary" href="{{ route('admin.searchDate') }}">Sort now</a> --}}
                                 </div>
                                 <input type="date" name="transac_date" class="form-control">
                             </div>
-                        {{-- </form> --}}
+                        </form>
                     </div>
 
                     <div class="col-lg-12">
