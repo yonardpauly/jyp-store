@@ -11,7 +11,7 @@ class SalesTransaction extends Model
 	public static function trackTotalSales()
 	{
 		$query = DB::table('sales_transactions')
-		->where('order_status_id', '>', 1)
+		->where('order_status_id', 2)
 		->sum('total_amount');
 		return $query;
 	}
