@@ -18,7 +18,6 @@ class CreateSalesTransactionsTable extends Migration
             $table->date('transaction_date')->index();
             $table->string('order_code')->unique();
             $table->string('customer_email');
-            $table->text('items');
             $table->integer('sold_quantity')->unsigned();
             $table->integer('total_amount')->unsigned();
             $table->boolean('order_status_id')->default(1);

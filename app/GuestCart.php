@@ -25,8 +25,6 @@ class GuestCart
             'qty' => 0
         ];
 
-        // dd($storedItem['price']);
-
         if ($this->items) {
             if (array_key_exists($slug, $this->items)) {
                 $storedItem = $this->items[$slug];

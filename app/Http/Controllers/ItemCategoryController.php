@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\ItemCategory;
-use App\Product;
-use App\Admin;
+use App\{ ItemCategory, Product, Admin, SalesTransaction };
 use \Auth;
 use \DB;
 
@@ -24,9 +22,15 @@ class ItemCategoryController extends Controller
 
     public function index()
     {
+        $totalSales = '₱'. number_format(SalesTransaction::trackTotalSales(), 2);
+        $totalTrans = SalesTransaction::trackTotalTransactions();
+        $totalProds = SalesTransaction::trackTotalProducts();
         $cats = ItemCategory::orderBy('updated_at', 'desc')->paginate(5);
         return view('item_categories.index')->with([
             'cats' => $cats,
+            'totalSales' => $totalSales,
+            'totalTrans' => $totalTrans,
+            'totalProds' => $totalProds
         ]);
     }
 

@@ -7,8 +7,19 @@
         <div class="section__content section__content--p30">
             <div class="container-fluid">
                 <div class="row">
+                    <div class="col-lg-10 offset-md-1">
+                        <h3 class="title-5 m-b-35">Edit Item</h3>
+                        <hr>
+                        <div class="alert alert-info" role="alert">
+                            <h4 class="alert-heading">Reminder</h4>
+                            <hr>
+                            <p>
+                                If you're creating new product and it returns an error "<code>The name is already been taken</code>" then it might be stored in <strong>Recycle Bin</strong>. You may restore that item in recycle bin and edit the information, thank you!
+                            </p>
+                        </div>
+                    </div>
 
-                    <div class="col-lg-8 offset-md-2">
+                    <div class="col-lg-10 offset-md-1">
                         <div class="card">
                             <div class="card-header">
                             <h3 class="text-center">EDIT {{ $product->name }}</h3>
@@ -85,14 +96,6 @@
                                             @endif
                                         </div>
 
-                                    </div>
-
-                                    <div class="row form-group">
-                                        <div class="col-md-8">
-                                            <label for="file-input" class=" form-control-label">{{ __('Image') }}</label>
-                                            <input type="file" id="file-input" name="file-input" class="form-control-file">
-
-                                        </div>
                                     </div>
 
                                     <div class="card-footer">

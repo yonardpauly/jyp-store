@@ -42,7 +42,7 @@
     <div class="container">
         <div class="row justify-content-center">
             @if( count($products) < 1 )
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <h1>No Items found. Please contact system administrator.</h1>
                 </div>
             @else
@@ -70,14 +70,15 @@
                                     @endif
                                 </p>
                             </div>
-                            <div class="card-footer">
-                                @if( $product->quantity > 0 )
+
+                            @if( $product->quantity > 0 )
+                                <div class="card-footer">
                                     <form action="{{ route('shop.guestAdd', $product->slug) }}" method="POST">
                                         @csrf
                                         <button type="submit" class="btn btn-primary" {{ ($product->quantity) < 1 ? 'disabled' : '' }}>Add to Cart</button>                            
                                     </form>
-                                @endif
-                            </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 @endforeach

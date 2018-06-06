@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\{ Product, User, Admin, GuestCart, SalesTransaction };
-use \DB;
+use Illuminate\Http\Request;
+use App\{ Product, User, Admin, GuestCart, SalesTransaction, OrderedItem };
 use \Session;
 use \Auth;
-
-use Illuminate\Http\Request;
+use \DB;
 
 class ShopController extends Controller
 {
@@ -57,11 +56,6 @@ class ShopController extends Controller
         return $result;
     }
 
-    public function removeCartItem(Request $req, $slug)
-    {
-        //
-    }
-
     public function showCheckout()
     {
         $redirectPath;
@@ -94,6 +88,7 @@ class ShopController extends Controller
     {
         $guestCart = Session::get('cart');
         $cart = new GuestCart($guestCart);
+
         $arr1 = [];
         foreach ($cart->items as $key => $value) {
             $arr1[$key] = $value;
@@ -110,11 +105,7 @@ class ShopController extends Controller
         foreach ($arr3 as $value) {
             $arr4[] = $value;
         }
-        $arr5 = [];
-        for ($i = 0; $i < count($arr4); $i++) {
-            $arr5[] = $arr4[$i]['qty'];
-        }
-        
+
         $trans_date = date('Y-m-d');
         $order_code = date('YmdHms') . Auth::user()->id . $cart->totalQty;
         $user_email = Auth::user()->email;
@@ -123,29 +114,36 @@ class ShopController extends Controller
         $totalPrice = $cart->totalPrice;
         $user_id = Auth::user()->id;
 
-        $items = [];
-        foreach ($cartItems as $key => $value) {
-            $items[$key] = implode('~', $value);
-        }
-
         $stData = new SalesTransaction;
-        $new = implode(',', $items);        
         $stData->transaction_date = $trans_date;
         $stData->order_code = $order_code;
         $stData->customer_email = $user_email;
-        $stData->items = $new;
         $stData->sold_quantity = $totalQty;
         $stData->total_amount = $totalPrice;
         $stData->user_id = $user_id;
 
         if (Auth::check() && $stData->save()) {
+            $id = DB::table('sales_transactions')
+            ->select('id')
+            ->where('user_id', Auth::user()->id)
+            ->latest()->get();
+
+            $data = null;
+
+            foreach ($id[0] as $ii) {
+                $data[] = $ii;
+            }
+            $res = $data;
 
             for ($i = 0; $i < count($arr1); $i++) {
-                DB::table('products')
-                ->where('slug', isset($arr3[$i]['item'][0]['slug']) ? $arr3[$i]['item'][0]['slug'] : null)
-                ->decrement('quantity', $arr5[$i]);
+                $oi = new OrderedItem;
+                $oi->sales_transaction_id = $res[0];
+                $oi->item = $arr4[$i]['item'][0]['name'];
+                $oi->quantity = $arr4[$i]['qty'];
+                $oi->price = $arr4[$i]['item'][0]['price'];
+                $oi->slug = $arr4[$i]['item'][0]['slug'];
+                $oi->save();
             }
-
             $result = redirect()->route('shop.index')->with('orderSuccess', 'Your order has been successfuly submitted. Your order code is '. $order_code);
             
         } else {

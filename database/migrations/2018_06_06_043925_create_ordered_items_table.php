@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCheckoutsTable extends Migration
+class CreateOrderedItemsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,15 @@ class CreateCheckoutsTable extends Migration
      */
     public function up()
     {
-        Schema::create('checkouts', function (Blueprint $table) {
+        Schema::create('ordered_items', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('sales_transaction_id')->unsigned()->index();
             $table->string('item');
+            $table->integer('quantity')->unsigned();
             $table->integer('price')->unsigned();
-            $table->integer('quantity')->unsigned()->default(1);
-            $table->integer('user_id')->unsigned()->index();
+            $table->string('slug');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -30,6 +32,6 @@ class CreateCheckoutsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('checkouts');
+        Schema::dropIfExists('ordered_items');
     }
 }

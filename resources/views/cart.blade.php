@@ -52,7 +52,7 @@
                                     <td>{{ $item['qty'] }}</td>
                                     <td width="25%">{{ '₱'. number_format($item['price'], 2) }}</td>
                                     <td width="15%">
-                                        <a class="item" href="{{ route('shop.removeCartItem', $item['item'][0]['slug']) }}" title="Remove this item">
+                                        <a class="item" href="#" title="Remove this item">
                                             <i class="zmdi zmdi-delete text-muted"></i>
                                         </a>
                                     </td>

@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Product;
-use App\Admin;
+use App\{ Product, Admin, ItemCategory, SalesTransaction };
 use \Auth;
-use App\ItemCategory;
 use \DB;
 use Illuminate\Http\Request;
 
@@ -13,10 +11,16 @@ class ProductController extends Controller
 {
     public function index()
     {
+        $totalSales = '₱'. number_format(SalesTransaction::trackTotalSales(), 2);
+        $totalTrans = SalesTransaction::trackTotalTransactions();
+        $totalProds = SalesTransaction::trackTotalProducts();
         $products = Product::orderBy('updated_at', 'desc')
         ->paginate(3);
         return view('products.index')->with([
             'products' => $products,
+            'totalSales' => $totalSales,
+            'totalTrans' => $totalTrans,
+            'totalProds' => $totalProds
         ]);
     }
 

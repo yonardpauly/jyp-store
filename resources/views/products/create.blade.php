@@ -87,14 +87,6 @@
 
                                     </div>
 
-                                    <div class="row form-group">
-                                        <div class="col-md-8">
-                                            <label for="file-input" class=" form-control-label">{{ __('Image') }}</label>
-                                            <input type="file" id="file-input" name="file-input" class="form-control-file">
-
-                                        </div>
-                                    </div>
-
                                     <div class="card-footer">
                                         <button type="submit" class="btn btn-lg btn-primary btn-block">
                                             <i class="fa fa-dot-circle-o fa-lg"></i> Submit

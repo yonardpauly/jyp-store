@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
+use App\{ Order, SalesTransaction };
 use \Auth;
 use Illuminate\Http\Request;
 
@@ -17,6 +17,20 @@ class HomeController extends Controller
     {
         $orders = Order::where('user_id', Auth::user()->id)
         ->orderBy('created_at', 'desc')->get();
-        return view('/home')->with('orders', $orders);
+
+        $trans = SalesTransaction::where('user_id', Auth::user()->id)
+        ->orderBy('created_at', 'desc')->get();
+
+        return view('/home')->with([
+            'orders' => $orders,
+            'trans' => $trans
+        ]);
+    }
+
+    public function showItems($items)
+    {
+        $items = SalesTransaction::where('items', $items)->get();
+        // dd($items);
+        return view('items')->with('items', $items);
     }
 }

@@ -6,6 +6,7 @@
     <div class="main-content">
         <div class="section__content section__content--p30">
             <div class="container-fluid">
+                @include('admin-dashboard.stats')
                 <div class="row">
                     <div class="col-md-12">
 
@@ -42,7 +43,7 @@
                             <h4 class="alert-heading">Reminder</h4>
                             <hr>
                             <p>
-                                If you're creating new product and it returns an error "<code>The name is already been taken</code>" then it might be stored in <strong>Recycle Bin</strong>. You may restore that item in recycle bin and edit the information, thank you!
+                                Admins are not allowed and cannot create customer accounts. Let them register themselves. Thank you.
                             </p>
                         </div>
                         <div class="table-data__tool">
@@ -53,13 +54,6 @@
                                     </a>
                                 </div>
                             </div>
-                            <div class="table-data__tool-right">
-                                <a href="{{ route('customers.create') }}">
-                                    <button class="au-btn au-btn-icon au-btn--green au-btn--small">
-                                        <i class="zmdi zmdi-plus"></i>add item
-                                    </button>
-                                </a>
-                            </div>
                         </div>
                         <div class="table-responsive table-responsive-data2">
                             <table class="table table-data2 text-center">
@@ -69,7 +63,6 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Date Created</th>
-                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -88,13 +81,6 @@
                                                 <td class="desc">{{ $customer->name }}</td>
                                                 <td class="desc">{{ $customer->email }}</td>
                                                 <td>{{ $customer->created_at }}</td>
-                                                <td>
-                                                    <div class="table-data-feature">
-                                                        <a href="{{ route('roles.edit', $customer->id) }}" class="item" title="Edit this item">
-                                                            <i class="zmdi zmdi-edit"></i>
-                                                        </a>
-                                                    </div>
-                                                </td>
                                             </tr>
                                         @endforeach
                                     @endif

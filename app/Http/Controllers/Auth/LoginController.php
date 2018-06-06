@@ -42,7 +42,6 @@ class LoginController extends Controller
     public function userLogout(Request $request)
     {
         Auth::guard('web')->logout();
-        // Auth::logout();
         $request->session()->invalidate();
         return redirect('/cart');
     }
