@@ -37,7 +37,7 @@
                         @endif
 
                         <!-- DATA TABLE -->
-                        <h3 class="title-5 m-b-35">All Customers</h3>
+                        <h2 class="m-b-35">All Customers</h2>
                         <hr>
                         <div class="alert alert-info" role="alert">
                             <h4 class="alert-heading">Reminder</h4>
