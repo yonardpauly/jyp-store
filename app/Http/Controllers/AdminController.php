@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Yajra\Datatables\Facades\Datatables;
 use App\SalesTransaction;
 use App\Order;
 use App\Product;
@@ -75,6 +76,10 @@ class AdminController extends Controller
     public function showReports()
     {
         $sort = SalesTransaction::all();
-        return view('reports')->with('sort', $sort);
+        $reports = SalesTransaction::select([
+            'transaction_date','order_status_id','order_code','sold_quantity','total_amount'
+        ])->get();
+        // dd($reports);
+        return view('reports')->with('reports', $reports);
     }
 }

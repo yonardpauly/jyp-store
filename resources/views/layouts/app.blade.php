@@ -141,6 +141,11 @@
     <script src="{{ asset('vendor/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
     <script src="{{ asset('vendor/chartjs/Chart.bundle.min.js') }}"></script>
     <script src="{{ asset('vendor/select2/select2.min.js') }}"></script>
+
+    <script src="https://datatables.yajrabox.com/js/jquery.dataTables.min.js"></script>
+    <script src="https://datatables.yajrabox.com/js/datatables.bootstrap.js"></script>
+    <script src="https://datatables.yajrabox.com/js/handlebars.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.0.0/jquery.mark.min.js"></script>
     <!-- Main JS-->
     <script src="{{ asset('js/stats.js') }}"></script>
     <script>

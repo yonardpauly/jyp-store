@@ -11,6 +11,7 @@
 |
 */
 Auth::routes();
+Route::post('/reports', 'AdminController@adminSearchDate')->name('admin.searchDate');
 /*
 |--------------------------------------------------------------------------
 | Admin Routes

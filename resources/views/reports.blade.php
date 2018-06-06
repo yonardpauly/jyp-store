@@ -18,39 +18,42 @@
                     </div>
                 </div>
 
+                <form action="{{ route('admin.searchDate') }}" method="POST">
+                    <input type="text" name="date" class="form-control">
+                    <button class="btn btn-primary" type="submit">Search</button>   
+                </form>
+
                 <div class="row">
 
                     <div class="col-lg-12">
                         
                         <div class="table-responsive table--no-card m-b-10">
-                            <table class="table table-borderless table-striped table-earning text-center">
+                            <table id="#reports-table" class="table table-borderless table-striped table-earning text-center">
                                 <thead>
                                     <tr>
                                         <th>transaction date</th>
                                         <th>status</th>
                                         <th>order code</th>
-                                        <th>customer email</th>
                                         <th>total quantity</th>
                                         <th>price</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if( count($sort) < 1 )
+                                    {{-- @if( count($reports) < 1 )
                                         <tr>
                                             <td colspan="8">No Reports found</td>
                                         </tr>
-                                    @else
-                                    @foreach( $sort as $item )
+                                    @else --}}
+                                    @foreach( $reports as $report )
                                     <tr>
-                                        <td>{{ $item->transaction_date }}</td>
-                                        <td>{{ $item->order_status_id }}</td>
-                                        <td>{{ $item->order_code }}</td>
-                                        <td>{{ $item->customer_email }}</td>
-                                        <td>{{ $item->sold_quantity }}</td>
-                                        <td>{{ $item->total_amount }}</td>
+                                        <td>{{ $report->transaction_date }}</td>
+                                        <td>{{ $report->order_status_id }}</td>
+                                        <td>{{ $report->order_code }}</td>
+                                        <td>{{ $report->sold_quantity }}</td>
+                                        <td>{{ $report->total_amount }}</td>
                                     </tr>
                                     @endforeach
-                                    @endif
+                                    {{-- @endif --}}
                                 </tbody>
                             </table>
                         </div>
@@ -73,3 +76,13 @@
     </div>
     <!-- END MAIN CONTENT-->
 @endsection
+
+<script>
+    $(function() {
+        $('#reports-table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: 'https://datatables.yajrabox.com/eloquent/basic-data'
+        });
+    });
+</script>
